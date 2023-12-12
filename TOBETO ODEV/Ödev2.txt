@@ -1,0 +1,1 @@
+https://github.com/busraknar/CSharpTobeto.git Aynı repo içinde 2.ödev de var

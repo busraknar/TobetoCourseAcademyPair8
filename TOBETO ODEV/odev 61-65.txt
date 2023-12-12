@@ -1,0 +1,31 @@
+--61. En çok satılan ürünümün(adet bazında) adı, kategorisinin adı ve tedarikçisinin adı
+select product_name,category_name,company_name from products p 
+inner join categories c on p.category_id = c.category_id 
+inner join suppliers s on p.supplier_id = s.supplier_id 
+where units_on_order = (select max(units_on_order) from products) 
+
+--62. Kaç ülkeden müşterim var
+select count(distinct(country)) as HowManyCountries from customers 
+--63. Hangi ülkeden kaç müşterimiz var
+select country, count(customer_id) from customers
+group by country
+
+--64. 3 numaralı ID ye sahip çalışan (employee) son Ocak ayından BUGÜNE toplamda ne kadarlık ürün sattı?
+select sum(od.unit_price*od.quantity) as totalPrice from orders o
+inner join order_details od
+on od.order_id = o.order_id
+inner join products p
+on od.product_id = p.product_id
+where o.employee_id=3 and 
+order_date between (select order_date from orders where date_part('year',order_date) 
+					= (select  date_part('year',order_date) from orders order by order_date desc limit 1) 
+					and date_part('month',order_date)=1 order by order_date limit 1) AND CAST(NOW() AS DATE) 
+
+--65. 10 numaralı ID ye sahip ürünümden son 3 ayda ne kadarlık ciro sağladım?
+select SUM(od.unit_price*od.quantity) as carpim from order_details od
+inner join orders o
+on od.order_id=o.order_id 
+where od.product_id=10 and o.order_date= BETWEEN '1998-02-06' and '1998-05-06'
+order by order_date DESC
+
+--HATA VAR TEKRAR BAKMALI, hatırladığım kadarıyla yazdım.

@@ -1,0 +1,3 @@
+Entity katmanı : Veritabanı varlıklarını kodluyoruz.
+Concrete : O tabloya ait olan varlıkları tanımlıyoruz.
+Dto : Birleştirdiğimiz(join) tabloların nesnelerini tanımlıyoruz
